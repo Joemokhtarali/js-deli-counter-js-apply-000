@@ -1,5 +1,11 @@
 /*global describe, it */
 
+function takeANumber(katzDeli, newCustomer) {
+  katzDeli.push(newCustomer);
+  
+    return "Welcome, " + newCustomer + ". You are number " + (katzDeli.indexOf(newCustomer) + 1) + " in line.";
+}
+
 describe('deli', () => {
   describe('takeANumber', () => {
     var katzDeli;
@@ -29,12 +35,14 @@ describe('deli', () => {
     });
   });
   
-        function takeANumber(katzDeli, name) {
-          katzDeli.push(name);
-          var number = katzDeli.indexOf(name) + 1;
-          return "Welcome, " + name + ". You are number " + number + " in line.";
-        }
-  
+function nowServing(deliLine) {
+    if (deliLine.length === 0) {
+      return "There is nobody waiting to be served!";
+    } else {
+      return "Currently serving " + deliLine.shift() +".";
+      
+    }
+  }   
 
   describe('nowServing', () => {
     it('returns the line is empty when no one is on line', () => {
@@ -48,19 +56,7 @@ describe('deli', () => {
     });
   });
   
-  function nowServing(array) {
-    if (array.length === 0) {
-      return "There is nobody waiting to be served!";
-    } else {
-    
-    for (var i = 0; i < array.length; i++) {
-      
-      return "Currently serving " + array[i] + ".";
-     
-    }
-    }
-  }
-
+  
 
   describe('currentLine(line)', () => {
     it('returns "The line is currently empty." if no one is in line', () => {
@@ -73,15 +69,21 @@ describe('deli', () => {
   });
 })
 
-function currentLine(array) {
-  if (array.length === 0) {
-    return "The line is currently empty.";
-  } else { 
-    var newArray = [];
-    for (var i = 0; i < array.length; i++) {
-      newArray.push((i + 1) + ". " + array[i]);
+  function currentLine(katzDeliLine) { 
+    if (katzDeliLine.length === 0) {
+      return "The line is currently empty.";
+    } 
+    var line = [];
+    for (var i = 0; i < katzDeliLine.length; i++) {
+      var customer = katzDeliLine[i];
+      if (i === katzDeliLine.length - 1) {
+        line.push((i + 1) + ". " + customer);
+      } else {
+      line.push((i + 1) + ". " + customer + ",");
+      }
     }
-    }
-    var line = newArray.join(", ");
-    return ("The line is currently: " + line);
+    
+    return "The line is currently: " + line.join(" ");
   }
+
+
